@@ -1,1 +1,29 @@
 <span>Soy la vista index</span>
+
+<script src="id3.min.js"></script>
+<input type="file">
+
+
+<img id="image">
+<script type="text/javascript">
+document.querySelector('input[type="file"]').onchange = function(e) {
+	id3(this.files[0], function(err, tags) {
+		console.log(tags.v2.image);
+		if (tags.v2.image != null) {
+    var blob = new Blob( [ a ], { type: "image/png" } );
+    var urlCreator = window.URL || window.webkitURL;
+    var imageUrl = urlCreator.createObjectURL( blob );
+
+    $('#image').attr('src', imageUrl);
+}
+	});
+}
+</script> 
+
+<div id="reproductor_cancion">
+<audio controls>
+  <source src="23.mp3" type="audio/mpeg">
+</audio>
+</div>
+
+<% include ../layouts/scripts %>

@@ -9,7 +9,8 @@
           cookieParser = require('cookie-parser'),
           passport     = require('passport'),
           session      = require('express-session'),
-          flash        = require('connect-flash');
+          flash        = require('connect-flash'),
+          staticFile = require('connect-static-file');
 
     let app = express();
 
@@ -70,18 +71,18 @@
 
     // Usar el middleware de node-sass, para que compile en vivo y en directo
     app.use(require('node-sass-middleware')({
-        src: path.join(__dirname, 'assets/frontend'),
+        src: path.join(__dirname, 'assets/frontend'), //TODO: arreglar esto
         dest: path.join(__dirname, 'public'),
         outputStyle: 'compressed',
         sourceMap: false
     }));
 
-    // servir de forma estática los elementos de public
     // Incluimos las dependencias ajenas
-    app.use(express.static(`${__dirname}/vendor/jquery/dist/jquery.min.js`));
+    app.use('/jquery.js', staticFile(`${__dirname}/vendor/jquery/dist/jquery.js`));
     
     // Incluimos nuestras dependencias públicas
     app.use(express.static(`${__dirname}/public`));
+    app.use(express.static(`${__dirname}/app/assets/javascripts`));
 
     // Si se produce un error en la ruta, enviamos un not found
     app.use((req, res, next) => {

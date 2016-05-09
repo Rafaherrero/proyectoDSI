@@ -7,7 +7,7 @@
         const login = require(get_controller('login'))(passport);
         const signup = require(get_controller('signup'))(passport);
         const logout = require(get_controller('logout'))(passport);
-        const users = require(get_controller('users'))();
+        const users = require(get_controller('users'))(passport);
 
         // Rutas. Por defecto, que vaya al controlador index
         app.use('/', index);

@@ -1,3 +1,6 @@
-    <%- css_tag('/vendor/jquery/dist/jquery.min.js') %>
+    <%- js_tag('jquery.js') %>
+    <% if (controller == 'index') { %>
+        <%- js_tag('index.js') %>
+    <% } %>
 </body>
 </html>

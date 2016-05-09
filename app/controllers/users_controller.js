@@ -1,7 +1,7 @@
 (() => {
     'use strict';
 
-    module.exports = function() {
+    module.exports = function(passport) {
         const express = require('express');
         const router = express.Router();
 
@@ -9,9 +9,11 @@
             res.send('Hola mundo');
         });
         
-        router.post('/', function(req, res) {
-            console.log(req.body)
-        });
+        router.post('/', passport.authenticate('local-signup', {
+            successRedirect: '/',
+            failureRedirect: '/',
+            failureFlash: true
+        }));
         
         return router;
     };
