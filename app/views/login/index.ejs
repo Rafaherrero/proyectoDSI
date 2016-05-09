@@ -1,0 +1,30 @@
+<% include ../layouts/head %>
+
+<%- form_tag("/login") %>
+    <%- label_for("email") %>
+    <%- email_field_tag("email") %><br />
+    <%- label_for("password") %>
+    <%- password_field_tag("password") %><br />
+    <%- submit_tag({class: 'button'}) %><br />
+<%- form_end_tag() %>
+
+<h1>Tus datos: </h1>
+<%  if(user == null){
+        user = {}
+        user._id = "???";
+        user.local = {
+            email: "????",
+            password: "???"
+        };
+  } else { %>
+        <h1>Cerrrar sesión</h1>
+        <%- link_to('Cerrar sesión', '/logout', {Class: 'btn'}) %>
+<% } %>
+
+<br>
+
+<strong>id</strong>: <%= user._id %><br>
+<strong>email</strong>: <%= user.local.email %><br>
+<strong>password</strong>: <%= user.local.password %>
+
+<% include ../layouts/scripts %>

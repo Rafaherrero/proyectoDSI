@@ -1,3 +1,5 @@
+<% include ../layouts/head %>
+
 <span>Soy la vista index</span>
 
 <script src="id3.min.js"></script>
@@ -25,5 +27,24 @@ document.querySelector('input[type="file"]').onchange = function(e) {
   <source src="23.mp3" type="audio/mpeg">
 </audio>
 </div>
+
+<h1>Tus datos: </h1>
+<%  if(user == null){
+        user = {}
+        user._id = "???";
+        user.local = {
+            email: "????",
+            password: "???"
+        };
+  } else { %>
+        <h1>Cerrrar sesión</h1>
+        <%- link_to('Cerrar sesión', '/logout', {Class: 'btn'}) %>
+<% } %>
+
+<br>
+
+<strong>id</strong>: <%= user._id %><br>
+<strong>email</strong>: <%= user.local.email %><br>
+<strong>password</strong>: <%= user.local.password %>
 
 <% include ../layouts/scripts %>

@@ -5,16 +5,18 @@
         const router = express.Router();
 
         router.get('/', (req, res) => {
+            res.render('login/index', {
+                title: 'CocoMusic',
+                user: req.user,
+                mesageLogin: req.flash('loginMessage'),
+                controller: 'login'
+            });
+            /*
             if(req.user){
                 res.redirect('/');
             } else {
-                res.render('login', {
-                    title: 'Sharis',
-                    user: req.user,
-                    mesageLogin: req.flash('loginMessage'),
-                    path: 'login'
-                });
-            }
+                
+            }*/
         });
 
         router.post('/', passport.authenticate('local-login', {
