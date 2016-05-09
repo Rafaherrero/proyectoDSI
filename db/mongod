@@ -1,0 +1,6 @@
+#!/bin/bash
+if [ -z $IP ]
+then
+	IP=0.0.0.0
+fi
+mongod --bind_ip=$IP --dbpath=data --nojournal --rest "$@"
