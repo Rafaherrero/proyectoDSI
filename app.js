@@ -77,6 +77,10 @@
     }));
 
     // servir de forma estática los elementos de public
+    // Incluimos las dependencias ajenas
+    app.use(express.static(`${__dirname}/vendor/jquery/dist/jquery.min.js`));
+    
+    // Incluimos nuestras dependencias públicas
     app.use(express.static(`${__dirname}/public`));
 
     // Si se produce un error en la ruta, enviamos un not found

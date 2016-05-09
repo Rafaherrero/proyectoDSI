@@ -1,0 +1,29 @@
+{
+  "name": "cocomusic",
+  "description": "proyecto DSI de Rafa, Dani, Pedro",
+  "main": "/bin/www",
+  "authors": [
+    "Rafa",
+    "Dani",
+    "Pedro"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "musica",
+    "ipod",
+    "playlist",
+    "dsi",
+    "cocomusic"
+  ],
+  "homepage": "https://github.com/Rafaherrero/proyectoDSI",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.3"
+  }
+}

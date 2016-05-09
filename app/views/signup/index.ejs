@@ -1,0 +1,11 @@
+<% include ../layouts/head %>
+
+<% form_for("user", {multipart: true}, function(f){ %>
+  <%- f.label_for("username") %>
+  <%- f.text_field("username") %><br/>
+  <%- f.label_for("password") %>
+  <%- f.password_field("password") %><br/>
+  <%- f.submit({class: 'button'}) %><br/>
+<% }) %>
+
+<% include ../layouts/scripts %>
