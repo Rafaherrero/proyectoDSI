@@ -1,35 +1,19 @@
 <% include ../layouts/head %>
 
+<% include ../layouts/navbar %>
+
 <span>Soy la vista index</span>
 
 <script src="id3.min.js"></script>
 <input type="file">
 
-
-<img id="image">
-<script type="text/javascript">
-document.querySelector('input[type="file"]').onchange = function(e) {
-	id3(this.files[0], function(err, tags) {
-		if (tags.v2.private != null) {
-    var len = tags.v2.private.data.byteLength ;
-    var encodedStr = String.fromCharCode.apply(null, new Uint8Array(tags.v2.private.data));
-    var decodedString = decodeURIComponent(escape( encodedStr ));
-}
-		console.log(tags.v2.image);
-		if (tags.v2.image != null) {
-    var blob = new Blob( [ tags.v2.image.data ], { type: "image/png" } );
-    var urlCreator = window.URL || window.webkitURL;
-    var imageUrl = urlCreator.createObjectURL( blob );
-
-    $('#image').attr('src', imageUrl);
-}
-	});
-}
-
-//IMPORTANTE!!!! ID3JS ESTA MALL!!!!
-//https://github.com/defenderjim/id3/blob/ebfb6792590d49aef00bfa031d28c2460b5313f2/dist/id3.js
-
-</script> 
+<div class="carousel">
+    <a class="carousel-item" href="#one!"><img id="image"></a>
+    <a class="carousel-item" href="#two!"><img id="image"></a>
+    <a class="carousel-item" href="#three!"><img id="image"></a>
+    <a class="carousel-item" href="#four!"><img id="image"></a>
+    <a class="carousel-item" href="#five!"><img id="image"></a>
+  </div>
 
 <div id="reproductor_cancion">
 <audio controls>

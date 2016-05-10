@@ -1,6 +1,5 @@
     <%- js_tag('jquery.js') %>
-    <% if (controller == 'index') { %>
-        <%- js_tag('index.js') %>
-    <% } %>
+    <%- js_tag('materialize.js') %>
+    <%- js_tag(`${controller}.js`) %>
 </body>
 </html>

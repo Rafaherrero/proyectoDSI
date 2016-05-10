@@ -79,10 +79,14 @@
 
     // Incluimos las dependencias ajenas
     app.use('/jquery.js', staticFile(`${__dirname}/vendor/jquery/dist/jquery.js`));
+    app.use('/materialize.css', staticFile(`${__dirname}/vendor/Materialize/dist/css/materialize.min.css`));
+    app.use('/materialize.js', staticFile(`${__dirname}/vendor/Materialize/dist/js/materialize.min.js`));
     
     // Incluimos nuestras dependencias públicas
-    app.use(express.static(`${__dirname}/public`));
+    app.use(express.static(`${__dirname}/vendor/Materialize/dist`));
     app.use(express.static(`${__dirname}/app/assets/javascripts`));
+    app.use(express.static(`${__dirname}/app/assets/images`));
+    app.use(express.static(`${__dirname}/public`));
 
     // Si se produce un error en la ruta, enviamos un not found
     app.use((req, res, next) => {
