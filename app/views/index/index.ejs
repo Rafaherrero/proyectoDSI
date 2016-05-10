@@ -7,19 +7,30 @@
 <script src="id3.min.js"></script>
 <input type="file">
 
-<div class="carousel">
-    <a class="carousel-item" href="#one!"><img id="image"></a>
-    <a class="carousel-item" href="#two!"><img id="image"></a>
-    <a class="carousel-item" href="#three!"><img id="image"></a>
-    <a class="carousel-item" href="#four!"><img id="image"></a>
-    <a class="carousel-item" href="#five!"><img id="image"></a>
+<div class="row center">
+    <div class="col s12">
+<div class="carousel" id="carousel_col">
+    <a class="carousel-item" href="#one!"><img class="image">Addicted to you</a>
+    <a class="carousel-item" href="#two!"><img class="image"></a>
+    <a class="carousel-item" href="#three!"><img class="image"></a>
+    <a class="carousel-item" href="#four!"><img class="image"></a>
+    <a class="carousel-item" href="#five!"><img class="image"></a>
+    <a class="carousel-item" href="#six!"><img class="image"></a>
+    <a class="carousel-item" href="#seven!"><img class="image"></a>
+    <a class="carousel-item" href="#eight!"><img class="image"></a>
+    <a class="carousel-item" href="#nine!"><img class="image"></a>
+    <a class="carousel-item" href="#ten!"><img class="image"></a>
+    <a class="carousel-item" href="#eleven!"><img class="image"></a>
+    <a class="carousel-item" href="#twelve!"><img class="image"></a>
+    <a class="carousel-item" href="#thirteen!"><img class="image"></a>
+  </div>
+  <div id="reproductor_cancion">
+     <a class="btn-floating btn-large" id="boton_p"><i id="boton_p_material_icons" class="material-icons">play_arrow</i></a>
+</div>
+  </div>
   </div>
 
-<div id="reproductor_cancion">
-<audio controls>
-  <source src="23.mp3" type="audio/mpeg">
-</audio>
-</div>
+
 
 <h1>Tus datos: </h1>
 <%  if(user == null){
