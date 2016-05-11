@@ -20,8 +20,8 @@
             return buffer;
         }
         
-        glob('/home/ubuntu/workspace/import/**/*.mp3', {}, function (err, files) {
-            console.log(files);/*
+        glob(__dirname + '/../../import/**/*.mp3', {}, function (err, files) {
+            console.log(files);
             files.forEach((path) => {
                 id3({ file: path, type: id3.OPEN_LOCAL }, function(err, tags) {
                     console.log('estas con las etiquetas: ')
@@ -39,7 +39,7 @@
                             data: toBuffer(tags.v2.image.data),
                             contentType: 'image/png'
                         },
-                        owner:  new mongoose.mongo.ObjectID('573307d587bbe20633d08087')
+                        owner:  new mongoose.mongo.ObjectID('573319e27b8da6a6274fd95a')
                     });
                     
                     console.log('Esto es s1: ')
@@ -52,7 +52,7 @@
                         }
                     });
                 });
-            });*/
+            });
         })
         /*
         
@@ -68,19 +68,18 @@
 
         router.get('/:id', (req, res) => {
             console.log(req.body);
-            console.log('/home/ubuntu/workspace/public/prueba.mp3')
-            let data = fs.readFileSync('/home/ubuntu/workspace/public/prueba.mp3');
+            console.log(__dirname + '/../../public/prueba.mp3')
+            let data = fs.readFileSync(__dirname + '/../../public/prueba.mp3');
             res.contentType('audio/mpeg');
             res.send(data);
         });
         router.get('/',(req,res)=>{
             console.log(req.body);
-            console.log('/home/ubuntu/workspace/public/')
+            console.log(__dirname + '/../../public/')
             Song.findOne({}, (err, song) => {
                  res.contentType('image/png');
-                 res.send(song);
+                 res.send(song.image.data);
             })
-            //let data = fs.readFileSync('/home/ubuntu/workspace/app/assets/images/Plopper.png');
            
             
             /*let datos = {
