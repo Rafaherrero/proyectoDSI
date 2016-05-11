@@ -6,10 +6,10 @@
         name: String,
         artist: String,
         song: {
-            data: Buffer,
+            data: String,
             contentType: String
         },
-            image: {data: Buffer, 
+            image: {data: String, 
             contentType: String
             
         },

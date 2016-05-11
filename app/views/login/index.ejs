@@ -1,5 +1,7 @@
 <% include ../layouts/head %>
 
+<% include ../layouts/navbar %>
+
 <%- form_tag("/login") %>
     <%- label_for("email") %>
     <%- email_field_tag("email") %><br />

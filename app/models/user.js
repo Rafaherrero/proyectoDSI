@@ -8,6 +8,7 @@
             email: String,
             password: String
         }
+
     });
 
     // métodos ======================
