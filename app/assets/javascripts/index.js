@@ -18,10 +18,36 @@ $(document).ready(function() {
     }
 	});
 	
-	var myaudio = new Audio('/prueba.mp3');
+	var myaudio = new Audio('/songs/ukjjgjhgjhg');
+	
+	myaudio.addEventListener('loadedmetadata', function() {
+             $('#tiempo_cancion').text(myaudio.duration);
+             $('#cargando').remove();
+      });
+      
+      myaudio.addEventListener('timeupdate', function () {
+            $('#tiempo_cancion_reproducido').text(myaudio.currentTime.toFixed(2));
+      });
+      
+      /*var slider = document.getElementById('#rango_tiempo');
+      
+      noUiSlider.create(slider, {
+            start: [20, 80],
+            connect: true,
+            step: 1,
+            
+            range: {
+                  'min': 0,
+                  'max': 100
+            },
+            
+            format: wNumb({
+                  decimals: 0
+            })
+      });*/
 
 	$(document).on("click", "#boton_p", function() {
-	    
+	      
 	    if ($('#boton_p').text()==('play_arrow')){
 			myaudio.play();
             $('#boton_p').replaceWith('<a class="btn-floating btn-large waves-effect" id="boton_p"><i id="boton_p_material_icons" class="material-icons">pause</i></a>');

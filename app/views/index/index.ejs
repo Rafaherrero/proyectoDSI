@@ -26,7 +26,27 @@
   </div>
   <div id="reproductor_cancion">
      <a class="btn-floating btn-large" id="boton_p"><i id="boton_p_material_icons" class="material-icons">play_arrow</i></a>
+     <a class="btn-floating btn-large" id="boton_volume_up"><i id="boton_p_material_icons" class="material-icons">volume_down</i></a>
+     <a class="btn-floating btn-large" id="boton_volume_down"><i id="boton_p_material_icons" class="material-icons">volume_up</i></a>
 </div>
+<p>Tiempo total cancion: 
+    <span id="tiempo_cancion"></span>
+      <div class="preloader-wrapper big active" id="cargando">
+    <div class="spinner-layer">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>Tiempo total reproducido: <span id="tiempo_cancion_reproducido"></span></p>
+  
+<div class="sliders" id="rango_tiempo"></div>
+<img src="/songs">
   </div>
   </div>
 

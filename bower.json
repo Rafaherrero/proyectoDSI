@@ -25,6 +25,8 @@
   ],
   "dependencies": {
     "jquery": "^2.2.3",
-    "Materialize": "materialize#^0.97.6"
+    "Materialize": "materialize#^0.97.6",
+    "nouislider": "^8.5.1",
+    "wnumb": "^1.0.2"
   }
 }
