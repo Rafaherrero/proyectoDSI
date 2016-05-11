@@ -3,12 +3,11 @@
     module.exports = function() {
         const express = require('express');
         const fs = require('fs');
-        const util = require('util');
         const router = express.Router();
-        var id3 = require('id3js');
         var glob = require("glob");
         let Models = require('../models/song');
         let mongoose = require('mongoose')
+        var mm = require('musicmetadata');
         const Song = Models.Song;
         
         function toBuffer(ab) {
@@ -23,28 +22,22 @@
         glob(__dirname + '/../../import/**/*.mp3', {}, function (err, files) {
             console.log(files);
             files.forEach((path) => {
-                id3({ file: path, type: id3.OPEN_LOCAL }, function(err, tags) {
-                    console.log('estas con las etiquetas: ')
-                    console.log(tags.v2.title);
-                    console.log(tags.v2.artist);
-                    //console.log(Song);dasdasdasd
+                var parser = mm(fs.createReadStream(path), function (err, metadata) {
+                    if (err) throw err;
+                    console.log(metadata);
                     let s1 = new Song({
-                        name: tags.v2.title,
-                        artist: tags.v2.artist,
+                        name: metadata.title,
+                        artist: metadata.artist,
                         song: {
                             data: fs.readFileSync(path),
                             contentType: 'audio/mpeg'
                         },
                         image: {
-                            data: toBuffer(tags.v2.image.data),
+                            data: metadata.picture[0].data,
                             contentType: 'image/png'
                         },
                         owner:  new mongoose.mongo.ObjectID('573319e27b8da6a6274fd95a')
                     });
-                    
-                    console.log('Esto es s1: ')
-                    console.log(s1)
-                    
                     s1.save((err) => {
                         if(err){
                             console.log("dio error al guardar"+ err)
@@ -78,16 +71,15 @@
             console.log(__dirname + '/../../public/')
             Song.findOne({}, (err, song) => {
                  res.contentType('image/png');
+                 console.log(song);
                  res.send(song.image.data);
             })
-           
-            
+
             /*let datos = {
                 image: data,
                 titulo: 'JSON Derulo'
             }*/
-            
-            
+
         })
 
         return router;
