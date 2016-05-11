@@ -1,0 +1,54 @@
+<% include ../layouts/head %>
+<% include ../layouts/navbar %>
+
+<span>Soy el perfil de usuario de pepe.</span>
+
+<span>Si quieres una lista de mis canciones, haz un GET en /songs con JQuery</span>
+
+<h1>Hola, <%= user.local.email %></h1>
+
+<%- link_to('Actualizar canciones', '/songs/update', {Class: 'btn'}) %>
+
+<h1>Tus datos: </h1>
+<%  if(user == null){
+        user = {}
+        user._id = "???";
+        user.local = {
+            email: "????",
+            password: "???"
+        };
+  } else { %>
+        <h1>Cerrrar sesión</h1>
+        <%- link_to('Cerrar sesión', '/logout', {Class: 'btn'}) %>
+<% } %>
+
+<img id="ItemPreview" src="" />   <!-- AQUI SE METE LA IMAGEN -->
+
+
+<br>
+
+<!-- Poner la imagen sacada con GET y ponerla en el div con ID ItemPreview
+
+$.get('/songs', {}, (data) => {
+    console.log(data)
+    imagen = data[0].image.data;        //esto se debe hacer con un foreach para mostrar todas las imagenes y no solo la [0]
+
+    document.getElementById("ItemPreview").src = "data:image/png;base64," + imagen;
+
+}).fail((err)=>{console.log(err)});
+
+$.get('/songs/laid', {}, (data) => {
+    console.log(data)
+    //imagen = data.image.data;        //esto se debe hacer con un foreach para mostrar todas las imagenes y no solo la [0]
+
+    //document.getElementById("ItemPreview").src = "data:image/png;base64," + imagen;
+
+}).fail((err)=>{console.log(err)});
+
+-->
+
+<strong>id</strong>: <%= user._id %><br>
+<strong>email</strong>: <%= user.local.email %><br>
+<strong>password</strong>: <%= user.local.password %>
+
+<% include ../layouts/scripts %>

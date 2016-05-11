@@ -18,6 +18,15 @@ $(document).ready(function() {
     }
 	});
 	
+	/*
+	
+	http://stackoverflow.com/questions/17762763/play-wav-sound-file-encoded-in-base64-with-javascript
+	Como desde la base de datos se pasa la cancion en base64 para poder reproducirla se debe hacer algo parecido a esto...
+	En el link de arriba esta la pregunta con la respuesta.
+	var snd = new Audio("data:audio/wav;base64," + base64string);
+      snd.play();
+	*/
+	
 	var myaudio = new Audio('/songs/ukjjgjhgjhg');
 	
 	myaudio.addEventListener('loadedmetadata', function() {
