@@ -10,15 +10,6 @@
         var mm = require('musicmetadata');
         const Song = Models.Song;
         
-        function toBuffer(ab) {
-            var buffer = new Buffer(ab.byteLength);
-            var view = new Uint8Array(ab);
-            for (var i = 0; i < buffer.length; ++i) {
-                buffer[i] = view[i];
-            }
-            return buffer;
-        }
-        
         glob(__dirname + '/../../import/**/*.mp3', {}, function (err, files) {
             console.log(files);
             files.forEach((path) => {
@@ -40,9 +31,10 @@
                     });
                     s1.save((err) => {
                         if(err){
-                            console.log("dio error al guardar"+ err)
+                            console.log("dio error al guardar" + err)
                             return err;
                         }
+                        fs.unlink(path);
                     });
                 });
             });
@@ -60,12 +52,19 @@
         */
 
         router.get('/:id', (req, res) => {
+            console.log('Estamos en el get :id');
             console.log(req.body);
-            console.log(__dirname + '/../../public/prueba.mp3')
-            let data = fs.readFileSync(__dirname + '/../../public/prueba.mp3');
-            res.contentType('audio/mpeg');
-            res.send(data);
+            console.log('estamos despues de rewq.body');
+            //console.log(__dirname + '/../../public/prueba.mp3')
+            //let data = fs.readFileSync(__dirname + '/../../public/prueba.mp3');
+            Song.findOne({}, (err, song) => {
+                res.contentType('audio/mpeg');
+                console.log('Ya acabamos de coger la canción')
+                console.log(song.song)
+                res.send(song.song.data);
+            });
         });
+
         router.get('/',(req,res)=>{
             console.log(req.body);
             console.log(__dirname + '/../../public/')
