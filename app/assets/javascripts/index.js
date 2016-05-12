@@ -1,10 +1,10 @@
 $(document).ready(function() {
-	id3('/prueba.mp3', function(err, tags) {
-		if (tags.v2.private != null) {
-            var len = tags.v2.private.data.byteLength ;
-            var encodedStr = String.fromCharCode.apply(null, new Uint8Array(tags.v2.private.data));
-            var decodedString = decodeURIComponent(escape( encodedStr ));
-        }
+	id3('/cancion1.mp3', function(err, tags) {
+		//if (tags.v2.private != null) {
+            //var len = tags.v2.private.data.byteLength ;
+            //var encodedStr = String.fromCharCode.apply(null, new Uint8Array(tags.v2.private.data));
+            //var decodedString = decodeURIComponent(escape( encodedStr ));
+        //}
 
 	if (tags.v2.image != null) {
     var blob = new Blob( [ tags.v2.image.data ], { type: "image/png" } );
@@ -17,7 +17,8 @@ $(document).ready(function() {
         
     }
 	});
-	
+	let prueba;
+	console.log('/songs/update');
 	/*
 	
 	http://stackoverflow.com/questions/17762763/play-wav-sound-file-encoded-in-base64-with-javascript
@@ -27,16 +28,26 @@ $(document).ready(function() {
       snd.play();
 	*/
 	
-	var myaudio = new Audio('/songs/ukjjgjhgjhg');
+	var myaudio = new Audio('/cancion1.mp3');
 	
 	myaudio.addEventListener('loadedmetadata', function() {
-             $('#tiempo_cancion').text(myaudio.duration);
+             $('#tiempo_cancion').text(formatTime(myaudio.duration));
              $('#cargando').remove();
       });
       
       myaudio.addEventListener('timeupdate', function () {
-            $('#tiempo_cancion_reproducido').text(myaudio.currentTime.toFixed(2));
+            let minutes, seconds;
+            $('#tiempo_cancion_reproducido').text(formatTime(myaudio.currentTime));
+            $('#tiempo_cancion_restante').text(formatTime(myaudio.duration - myaudio.currentTime));
       });
+      
+      function formatTime(seconds) {
+            minutes = Math.floor(seconds / 60);
+            minutes = (minutes >= 10) ? minutes : "0" + minutes;
+            seconds = Math.floor(seconds % 60);
+            seconds = (seconds >= 10) ? seconds : "0" + seconds;
+            return minutes + ":" + seconds;
+      }
       
       /*var slider = document.getElementById('#rango_tiempo');
       
