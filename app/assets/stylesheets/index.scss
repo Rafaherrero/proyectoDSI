@@ -1,13 +1,25 @@
+@media only screen and (max-width: 768px){
 .carousel .carousel-item img {
-    width: 300px;
+    width: 100%;
 }
 
 .carousel-item{
-    width: 300px !important;
+    width: 100px; 
+}
+}
+
+@media only screen and (min-width: 768px){
+.carousel .carousel-item img {
+    width: 400px;
+}
+
+.carousel-item{
+    width: 400px !important; 
 }
 
 #carousel_col{
-    height: 450px;
+    height: 550px;
+}
 }
 
 #boton_p, #boton_volume_up, #boton_volume_down, #boton_anterior, #boton_siguiente, .noUi-target .range-label, .noUi-connect, .noUi-horizontal .noUi-handle{

@@ -21,6 +21,7 @@ $(document).ready(function() {
 	console.log('/songs/update');
 	/*
 	
+	
 	http://stackoverflow.com/questions/17762763/play-wav-sound-file-encoded-in-base64-with-javascript
 	Como desde la base de datos se pasa la cancion en base64 para poder reproducirla se debe hacer algo parecido a esto...
 	En el link de arriba esta la pregunta con la respuesta.
@@ -72,6 +73,12 @@ $(document).ready(function() {
             rangeSlider.noUiSlider.set([myaudio.currentTime]);
       });
       
+      myaudio.onended = function() {
+            myaudio.pause();
+	      $('#boton_p').replaceWith('<a class="btn-floating btn-large waves-effect" id="boton_p"><i id="boton_p_material_icons" class="material-icons">play_arrow</i></a>');
+	      myaudio.currentTime = 0;
+      };
+      
       function formatTime(seconds) {
             minutes = Math.floor(seconds / 60);
             minutes = (minutes >= 10) ? minutes : "0" + minutes;
@@ -85,19 +92,15 @@ $(document).ready(function() {
             return ((parseInt(a[0])*60)+parseInt(a[1]))
       }
       
-      
-
-
-      
 	$(document).on("click", "#boton_p", function() {
 	      
 	    if ($('#boton_p').text()==('play_arrow')){
-			myaudio.play();
+		myaudio.play();
             $('#boton_p').replaceWith('<a class="btn-floating btn-large waves-effect" id="boton_p"><i id="boton_p_material_icons" class="material-icons">pause</i></a>');
 	    }
 	    else{
-	        myaudio.pause();
-	        $('#boton_p').replaceWith('<a class="btn-floating btn-large waves-effect" id="boton_p"><i id="boton_p_material_icons" class="material-icons">play_arrow</i></a>');
+	      myaudio.pause();
+	      $('#boton_p').replaceWith('<a class="btn-floating btn-large waves-effect" id="boton_p"><i id="boton_p_material_icons" class="material-icons">play_arrow</i></a>');
 	    }
 	});
 });
