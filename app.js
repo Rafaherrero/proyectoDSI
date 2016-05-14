@@ -82,8 +82,8 @@
     app.use('/materialize.css', staticFile(`${__dirname}/vendor/Materialize/dist/css/materialize.min.css`));
     app.use('/materialize.js', staticFile(`${__dirname}/vendor/Materialize/dist/js/materialize.min.js`));
     app.use('/wNumb.js', staticFile(`${__dirname}/vendor/wnumb/wNumb.js`));
-    app.use('/nouislider.min.js', staticFile(`${__dirname}/vendor/nouislider/distribute/nouislider.min.js`));
-    app.use('/nouislider.min.css', staticFile(`${__dirname}/vendor/nouislider/distribute/nouislider.min.css`));
+    app.use('/nouislider.min.js', staticFile(`${__dirname}/vendor/Materialize/extras/noUiSlider/nouislider.min.js`));
+    app.use('/nouislider.css', staticFile(`${__dirname}/vendor/Materialize/extras/noUiSlider/nouislider.css`));
     
     // Incluimos nuestras dependencias públicas
     app.use(express.static(`${__dirname}/vendor/Materialize/dist`));

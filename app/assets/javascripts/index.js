@@ -29,16 +29,47 @@ $(document).ready(function() {
 	*/
 	
 	var myaudio = new Audio('/cancion1.mp3');
+	var rangeSlider = document.getElementById('rango_tiempo');
 	
 	myaudio.addEventListener('loadedmetadata', function() {
-             $('#tiempo_cancion').text(formatTime(myaudio.duration));
-             $('#cargando').remove();
+            $('#tiempo_cancion_restante').text(formatTime(myaudio.duration));
+            $('#tiempo_cancion_reproducido').text(formatTime(0));
+            
+            $('#cargando').remove();
+            
+	      noUiSlider.create(rangeSlider, {
+                  start: [0],
+                  connect: 'lower',
+                  range: {
+                  'min': [0],
+                  'max': [myaudio.duration]
+                  },
+                  format: {
+	                  to: function(value){
+	                        minutes = Math.floor(value / 60);
+                              minutes = (minutes >= 10) ? minutes : "0" + minutes;
+                              value = Math.floor(value % 60);
+                              value = (value >= 10) ? value : "0" + value;
+                              return minutes + ":" + value;
+	                  },
+	                  from: function(value){
+	                        var a = value.split(':');
+	                        return a;
+	                  }
+                  }
+            });
+            
+            rangeSlider.noUiSlider.on('slide', function(){
+                  myaudio.currentTime = formatTime_back(rangeSlider.noUiSlider.get());
+            });
       });
-      
+
       myaudio.addEventListener('timeupdate', function () {
             let minutes, seconds;
             $('#tiempo_cancion_reproducido').text(formatTime(myaudio.currentTime));
             $('#tiempo_cancion_restante').text(formatTime(myaudio.duration - myaudio.currentTime));
+            
+            rangeSlider.noUiSlider.set([myaudio.currentTime]);
       });
       
       function formatTime(seconds) {
@@ -49,23 +80,15 @@ $(document).ready(function() {
             return minutes + ":" + seconds;
       }
       
-      /*var slider = document.getElementById('#rango_tiempo');
+      function formatTime_back(time){
+            let a = time.split(':');
+            return ((parseInt(a[0])*60)+parseInt(a[1]))
+      }
       
-      noUiSlider.create(slider, {
-            start: [20, 80],
-            connect: true,
-            step: 1,
-            
-            range: {
-                  'min': 0,
-                  'max': 100
-            },
-            
-            format: wNumb({
-                  decimals: 0
-            })
-      });*/
+      
 
+
+      
 	$(document).on("click", "#boton_p", function() {
 	      
 	    if ($('#boton_p').text()==('play_arrow')){

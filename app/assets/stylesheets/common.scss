@@ -11,3 +11,9 @@ body {
 .nav-wrapper {
   background-color: $colorfuerte;
 }
+
+@media only screen and (min-width: 768px){
+#img_logo{
+  padding-top: 4px;
+}
+}
