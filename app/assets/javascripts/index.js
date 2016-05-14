@@ -17,8 +17,7 @@ $(document).ready(function() {
         
     }
 	});
-	let prueba;
-	console.log($.get('/songs/update'));
+	
 	/*
 	http://stackoverflow.com/questions/17762763/play-wav-sound-file-encoded-in-base64-with-javascript
 	Como desde la base de datos se pasa la cancion en base64 para poder reproducirla se debe hacer algo parecido a esto...
@@ -27,12 +26,28 @@ $(document).ready(function() {
       snd.play();
 	*/
 	
+	/*const cancionescarousel = `
+        <% cancionesbd.forEach((item, i) =>{ %>
+        <a class="carousel-item" href="#one"><img class="image"><%= item %></a>
+          <% }); %>`;
+
+        const actualizarCarousel = () => {
+            $.get('/songs', {}, (cancionesbd) => {
+                let template = _.template(cancionescarousel)({cancionesbd});
+                $('#carousel_col').html(template);
+            });
+            inicializarcarousel();
+        };
+	actualizarCarousel();*/
 	$.ajax(
       {     
             type: 'GET',
-            url: 'users/show',
+            url: '/songs',
             success: function (data) {
                   console.log(data);
+            },
+            fail: function(){
+                  
             }
       });
       
@@ -112,16 +127,17 @@ $(document).ready(function() {
 	});
 });
 	
-	$(document).ready(function(){
-      
-      $('.carousel').carousel({
+	function inicializarcarousel (){
+	  $('.carousel').carousel({
             time_constant: 100,
             dist:-150,
             shift:0,
             padding:20,
             full_width: false
-
-      });
+      });    
+	};
+	$(document).ready(function(){
+            inicializarcarousel();
     });
     
 

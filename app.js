@@ -84,6 +84,7 @@
     app.use('/wNumb.js', staticFile(`${__dirname}/vendor/wnumb/wNumb.js`));
     app.use('/nouislider.min.js', staticFile(`${__dirname}/vendor/Materialize/extras/noUiSlider/nouislider.min.js`));
     app.use('/nouislider.css', staticFile(`${__dirname}/vendor/Materialize/extras/noUiSlider/nouislider.css`));
+    app.use('/underscore-min.js', staticFile(`${__dirname}/vendor/underscore/underscore-min.js`));
     
     // Incluimos nuestras dependencias públicas
     app.use(express.static(`${__dirname}/vendor/Materialize/dist`));
