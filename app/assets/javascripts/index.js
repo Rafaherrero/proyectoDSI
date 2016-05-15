@@ -5,9 +5,10 @@ jQuery(document).ready(function($) {
       var rangeSlider = document.getElementById('rango_tiempo');
       var volumenSlider = document.getElementById('rango_volumen');
       let id_cancion_actual = 0;
+      let id_cancion_anterior = 0;
       let index_cancion_actual = 0;
       var imagen_actual=0;
-
+      let volumen_actual=1;
 
      /* <% datos_canciones.forEach((item, i) =>{ %>
             <tr class="reproducir_cancion_lista" id="<%= item._id %>&">
@@ -84,6 +85,7 @@ jQuery(document).ready(function($) {
                   //http://stackoverflow.com/questions/17762763/play-wav-sound-file-encoded-in-base64-with-javascript
                   imagen_actual = cancionmp3.image;
                   myaudio.setAttribute('src', "data:audio/mp3;base64," + cancionmp3.song);
+                  myaudio.volume = volumen_actual;
                   myaudio.load();
                   $('.outer').fadeOut(1000);
             },
@@ -124,12 +126,12 @@ jQuery(document).ready(function($) {
       
       function cambiar_por_play (){
             myaudio.play();
-            $('#boton_p').replaceWith('<a class="btn-floating btn-large waves-effect" id="boton_p"><i id="boton_p_material_icons" class="material-icons">pause</i></a>');
+            $('#boton_p').replaceWith('<a class="btn-floating btn-large waves-effect waves-light" id="boton_p"><i id="boton_p_material_icons" class="material-icons">pause</i></a>');
       }
       
       function cambiar_por_pause (){
             myaudio.pause();
-	      $('#boton_p').replaceWith('<a class="btn-floating btn-large waves-effect" id="boton_p"><i id="boton_p_material_icons" class="material-icons">play_arrow</i></a>');
+	      $('#boton_p').replaceWith('<a class="btn-floating btn-large waves-effect waves-light" id="boton_p"><i id="boton_p_material_icons" class="material-icons">play_arrow</i></a>');
       }
       
       myaudio.addEventListener("loadedmetadata", function() {
@@ -137,6 +139,7 @@ jQuery(document).ready(function($) {
             rangeSlider.noUiSlider.destroy();
             volumenSlider.noUiSlider.destroy();
             cambiar_por_play();
+            $(`#${id_cancion_anterior}\\&`).css('background','none');
             }
             let Img = $("<img>").attr("src", "data:image/png;base64," + imagen_actual);
             Img.attr("id", "img_caratula");
@@ -145,9 +148,7 @@ jQuery(document).ready(function($) {
             Img.addClass("hoverable");
             $("#img_caratula").replaceWith(Img);
             
-            myaudio.volume = 0.2;
-            console.log(myaudio.volume);
-            $('.reproducir_cancion_lista').css('background','none');
+            
             $(`#${datos_canciones[index_cancion_actual]._id}\\&`).css('background','#f5f5f5');
             
             $('#cancion_sonando').text(`${datos_canciones[index_cancion_actual].name}`);
@@ -177,7 +178,7 @@ jQuery(document).ready(function($) {
             });
             
             noUiSlider.create(volumenSlider, {
-                  start: [100],
+                  start: [myaudio.volume*100],
                   connect: 'lower',
                   range: {
                   'min': [0],
@@ -222,6 +223,10 @@ jQuery(document).ready(function($) {
             rangeSlider.noUiSlider.set([myaudio.currentTime]);
             
             });
+            
+      myaudio.addEventListener('volumechange', function () {
+            volumenSlider.noUiSlider.set([myaudio.volume*100]);
+      });
 
   	function actualizar_datos() {
 
@@ -231,6 +236,12 @@ jQuery(document).ready(function($) {
             rangeSlider.noUiSlider.on('slide', function(){
                   myaudio.currentTime = formatTime_back(rangeSlider.noUiSlider.get());
             });
+            
+            volumenSlider.noUiSlider.on('slide', function(){
+                  volumen_actual = volumenSlider.noUiSlider.get()/100;
+                  myaudio.volume = volumen_actual;
+            });
+            
       };
       
 	$(document).on('click', "#boton_p", function() {
@@ -245,6 +256,7 @@ jQuery(document).ready(function($) {
 	
 	function siguiente_cancion (){
 	      cambiar_por_pause();
+	      id_cancion_anterior = id_cancion_actual;
 	      index_cancion_actual = (IndexByKey(datos_canciones,"_id",id_cancion_actual)+1)%datos_canciones.length;
 	      id_cancion_actual = datos_canciones[index_cancion_actual]._id;
 	      carga_cancion(id_cancion_actual);
@@ -258,6 +270,7 @@ jQuery(document).ready(function($) {
 	      else{
 	            index_cancion_actual = (IndexByKey(datos_canciones,"_id",id_cancion_actual)-1)%datos_canciones.length;
 	      }
+	      id_cancion_anterior = id_cancion_actual;
 	      id_cancion_actual = datos_canciones[index_cancion_actual]._id;
 	      carga_cancion(id_cancion_actual);
 	      myaudio.currentTime = 0;
@@ -272,15 +285,22 @@ jQuery(document).ready(function($) {
 	});
 	
 	$(document).on('click', "#boton_volume_up", function() {
-	      
+	      if(volumen_actual<=0.9){
+	            volumen_actual = volumen_actual+0.1;
+	            myaudio.volume = volumen_actual;
+	      }
 	});
 	
 	$(document).on('click', "#boton_volume_down", function() {
-	      
+	      if(volumen_actual>=0.10){
+	            volumen_actual = volumen_actual-0.1;
+	            myaudio.volume = volumen_actual;
+	      }
 	});
 	
 	$(document).on('click', ".reproducir_cancion_lista", function() {
 	      cambiar_por_pause();
+	      id_cancion_anterior = id_cancion_actual;
 	      index_cancion_actual = (IndexByKey(datos_canciones,"_id",this.id.slice(0,-1)));
 	      id_cancion_actual = this.id.slice(0,-1);
 	      carga_cancion(id_cancion_actual);
