@@ -5,6 +5,7 @@
     var SongSchema = mongoose.Schema({
         name: String,
         artist: String,
+        album: String,
         song: {
             data: String,
             contentType: String

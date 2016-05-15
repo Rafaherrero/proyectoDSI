@@ -2,31 +2,36 @@
 
 <% include ../layouts/navbar %>
 
+<div class="row center">
+    <div class="col s12 m8 offset-m2">
+        <h3 id="texto_bienvenida">Bienvenido a Coco Music. Introduzca sus datos: </h3>
 <%- form_tag("/login") %>
     <%- label_for("email") %>
     <%- email_field_tag("email") %><br />
     <%- label_for("password") %>
     <%- password_field_tag("password") %><br />
-    <%- submit_tag({class: 'button'}) %><br />
+    <%- submit_tag({class: 'btn-large waves-effect waves-light'}) %><br />
 <%- form_end_tag() %>
-
-<h1>Tus datos: </h1>
-<%  if(user == null){
-        user = {}
-        user._id = "???";
-        user.local = {
-            email: "????",
-            password: "???"
-        };
-  } else { %>
-        <h1>Cerrrar sesión</h1>
-        <%- link_to('Cerrar sesión', '/logout', {Class: 'btn'}) %>
-<% } %>
-
-<br>
-
+</div>
+</div>
+<div class="row center">
+    <div class="col s12 m8 offset-m2">
+<h1>Sus datos: </h1>
+<%  if(user == null){ %>
+        <h5>Usted no ha iniciado sesión</h5>
+  <% } else { %>
 <strong>id</strong>: <%= user._id %><br>
 <strong>email</strong>: <%= user.local.email %><br>
 <strong>password</strong>: <%= user.local.password %>
-
+<% } %>
+<br>
+</div>
+</div>
+<div class="row center">
+    <div class="col s12 m8 offset-m2" id="col_cerrar_sesion">
+<%  if(user != null){ %>
+        <%- link_to('Cerrar sesión', '/logout', {Class: 'btn-large waves-effect waves-light'}) %>
+<% } %>
+</div>
+</div>
 <% include ../layouts/scripts %>

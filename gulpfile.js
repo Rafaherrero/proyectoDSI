@@ -38,9 +38,9 @@
                 'routes/**/*',
                 'app.js'
             ],
-            port: 8085,
+            port: 8081,
             ui: {
-                port: 8086
+                port: 8082
             },
             reloadDelay: 600
         });

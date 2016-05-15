@@ -22,31 +22,46 @@
 </div>
 </div>
 </div>
-<div class="row center">
+<div class="row" id="fila_reproductor">
 
-    <div class="col s12">
+    <!--<div class="col s12">
       <div class="carousel" id="carousel_col">
         <a class="carousel-item" href="#" id="cerdo_inicial"><img src="/Plopper.png"></a>
         </div>
+</div>-->
+<div class="col s12 l4 offset-l1 center" id="col_caratula">
+  <img id="img_caratula">
 </div>
-<div class="col s12">
-  <div id="reproductor_cancion">
-    <a class="btn-floating btn-large" id="boton_anterior"><i id="boton_p_material_icons" class="material-icons">skip_previous</i></a>
-    <a class="btn-floating btn-large" id="boton_p"><i id="boton_p_material_icons" class="material-icons">play_arrow</i></a>
-    <a class="btn-floating btn-large" id="boton_siguiente"><i id="boton_p_material_icons" class="material-icons">skip_next</i></a>
-    <a class="btn-floating btn-large" id="boton_volume_up"><i id="boton_p_material_icons" class="material-icons">volume_down</i></a>
-    <a class="btn-floating btn-large" id="boton_volume_down"><i id="boton_p_material_icons" class="material-icons">volume_up</i></a>
-</div>
-</div>
-</p>
 
-<div class="col s12 m6 offset-m3" id="col_tiempo">
+<div class="col s12 l6">
+  <b><h2 id="cancion_sonando"></h2></b>
+  <h3 id="artista_sonando"></h3>
+  <i><h4 id="album_sonando"></h4></i>
+</div>
+</div>
+<div class="row">
+<div class="col s12 l4 offset-l1 center">
+  <div id="reproductor_cancion">
+    <div class="col s2"><a class="btn-floating btn-large" id="boton_anterior"><i id="boton_p_material_icons" class="material-icons">skip_previous</i></a></div>
+    <div class="col s2"><a class="btn-floating btn-large" id="boton_p"><i id="boton_p_material_icons" class="material-icons">play_arrow</i></a></div>
+    <div class="col s2"><a class="btn-floating btn-large" id="boton_siguiente"><i id="boton_p_material_icons" class="material-icons">skip_next</i></a></div>
+    <div class="col s2"><a class="btn-floating btn-large" id="boton_volume_up"><i id="boton_p_material_icons" class="material-icons">volume_down</i></a></div>
+    <div class="col s2" id="col_volumen"><div class="slider center" id="rango_volumen"></div></div>
+    <div class="col s2"><a class="btn-floating btn-large" id="boton_volume_down"><i id="boton_p_material_icons" class="material-icons">volume_up</i></a></div>
+</div>
+</div>
+
+<div class="col s12 l5" id="col_tiempo">
   <div class="col s2"><span id="tiempo_cancion_reproducido"></span></div>
 <div class="col s8" id="col_slider"><div class="slider center" id="rango_tiempo"></div></div>
 <div class="col s2"><span id="tiempo_cancion_restante"></span></div>
 </div>
-<span id="probando"></span>
+</div>
+
+<div class = "row">
+<div class="col s12 m10 offset-m1" id="tabla_canciones">
   </div>
-  </div>
+
+</div>
 
 <% include ../layouts/scripts %>

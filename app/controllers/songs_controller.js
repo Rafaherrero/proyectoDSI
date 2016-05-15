@@ -39,6 +39,7 @@
                         let s1 = new Song({
                             name: metadata.title,
                             artist: metadata.artist,
+                            album: metadata.album,
                             song: {
                                 data: base64.fromByteArray(fs.readFileSync(path)),
                                 contentType: 'audio/mpeg'
@@ -123,7 +124,6 @@
             }
             
             let songsProjection = {
-                artist: false,
                 song: false,
                 owner: false
             }
