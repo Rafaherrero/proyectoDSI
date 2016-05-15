@@ -6,29 +6,38 @@ jQuery(document).ready(function($) {
       var volumenSlider = document.getElementById('rango_volumen');
       let id_cancion_actual = 0;
       let index_cancion_actual = 0;
+      var imagen_actual=0;
 
-      const canciones_tabla_bd = `
-        <table class="centered bordered highlight">
-        <thead>
-          <tr>
-          <th></th>
-              <th data-field="nombre">Canción</th>
-              <th data-field="artista">Artista</th>
-              <th data-field="album">Album</th>
-          </tr>
-        </thead>
-        <tbody>
-            <% datos_canciones.forEach((item, i) =>{ %>
+
+     /* <% datos_canciones.forEach((item, i) =>{ %>
             <tr class="reproducir_cancion_lista" id="<%= item._id %>&">
             <td><i class="small material-icons">play_circle_outline</i></td>
                 <td><%= item.name %></td>
                 <td><%= item.artist %></td>
                 <td><%= item.album %></td>
                 </tr>
-            <% }); %>
-                </tbody>
-            </table>`;
+            <% }); %>*/
 
+      function makeTabla (row){
+            var icono = $("<i>").addClass("small material-icons");
+            icono.append("play_circle_outline");
+            var newItem = $("<tr>").addClass("reproducir_cancion_lista");
+            newItem.attr("id", `${row._id}&`);
+            var newTd = $("<td>");
+            newTd.append(icono);
+            newItem.append(newTd);
+            newTd = $("<td>");
+            newTd.append(row.name);
+            newItem.append(newTd);
+            newTd = $("<td>");
+            newTd.append(row.artist);
+            newItem.append(newTd);
+            newTd = $("<td>");
+            newTd.append(row.album);
+            newItem.append(newTd);
+            
+            return newItem;
+      };
 
       $.ajax(
       {     
@@ -39,10 +48,11 @@ jQuery(document).ready(function($) {
                   datos_canciones.sort(function(a, b) {
                         return a.name.localeCompare(b.name);
                   });
-                  let template = _.template(canciones_tabla_bd)({datos_canciones});
-                  $('#tabla_canciones').html(template);
                   $("#cerdo_inicial").remove();
-                  var imagen = data.image;
+                  for(var i=0; i<data.length; i++) {
+                        var newrow = makeTabla(data[i]);
+                        $('#body_tabla').append(newrow);
+                  }
                   /*for(i=0; i<data.length; i++) {
                         var newSlide = makeCarousel(data[i]);   
                         $("#carousel_col").append(newSlide);
@@ -58,24 +68,27 @@ jQuery(document).ready(function($) {
             }
       });
       
-      $("imagen_carousel").each(function(index) {
-            $(this).on("click", function(){
+      /*$("imagen_carousel").each(function(index) {
+            $(this).on('click touchend', function(){
             console.log($(this).attr('id'));
             });
-      });
+      });*/
       
       function carga_cancion (ident){
       $.ajax(
       {     
             type: 'GET',
+            dataType: "json",
             url: `/songs/${ident}`,
             success: function (cancionmp3){
                   //http://stackoverflow.com/questions/17762763/play-wav-sound-file-encoded-in-base64-with-javascript
-                  myaudio.setAttribute('src', "data:audio/mp3;base64," + cancionmp3);
+                  imagen_actual = cancionmp3.image;
+                  myaudio.setAttribute('src', "data:audio/mp3;base64," + cancionmp3.song);
                   myaudio.load();
                   $('.outer').fadeOut(1000);
             },
       });
+      
       };
 	
       //http://stackoverflow.com/questions/7346827/javascript-find-array-index-with-value
@@ -103,7 +116,6 @@ jQuery(document).ready(function($) {
 
              return newItem;
       };*/
-
       
       function formatTime_back(time){
             let a = time.split(':');
@@ -123,17 +135,20 @@ jQuery(document).ready(function($) {
       myaudio.addEventListener("loadedmetadata", function() {
             if(cnt>0){
             rangeSlider.noUiSlider.destroy();
+            volumenSlider.noUiSlider.destroy();
             cambiar_por_play();
             }
-            let Img = $("<img>").attr("src", "data:image/png;base64," + datos_canciones[index_cancion_actual].image.data);
+            let Img = $("<img>").attr("src", "data:image/png;base64," + imagen_actual);
             Img.attr("id", "img_caratula");
             Img.addClass("responsive-img");
+            Img.addClass("z-depth-4");
+            Img.addClass("hoverable");
             $("#img_caratula").replaceWith(Img);
             
             myaudio.volume = 0.2;
             console.log(myaudio.volume);
-            
-            $(`${datos_canciones[index_cancion_actual]._id}`);
+            $('.reproducir_cancion_lista').css('background','none');
+            $(`#${datos_canciones[index_cancion_actual]._id}\\&`).css('background','#f5f5f5');
             
             $('#cancion_sonando').text(`${datos_canciones[index_cancion_actual].name}`);
             $('#artista_sonando').text(`${datos_canciones[index_cancion_actual].artist}`);
@@ -218,7 +233,7 @@ jQuery(document).ready(function($) {
             });
       };
       
-	$(document).on("click", "#boton_p", function() {
+	$(document).on('click', "#boton_p", function() {
 	      
 	   if ($('#boton_p').text()==('play_arrow')){
 		cambiar_por_play();
@@ -248,15 +263,23 @@ jQuery(document).ready(function($) {
 	      myaudio.currentTime = 0;
 	};
 	
-	$(document).on("click", "#boton_siguiente", function() {
+	$(document).on('click', "#boton_siguiente", function() {
 	      siguiente_cancion();
 	});
 	
-	$(document).on("click", "#boton_anterior", function() {
+	$(document).on('click', "#boton_anterior", function() {
 	      cancion_anterior();
 	});
 	
-	$(document).on("click", ".reproducir_cancion_lista", function() {
+	$(document).on('click', "#boton_volume_up", function() {
+	      
+	});
+	
+	$(document).on('click', "#boton_volume_down", function() {
+	      
+	});
+	
+	$(document).on('click', ".reproducir_cancion_lista", function() {
 	      cambiar_por_pause();
 	      index_cancion_actual = (IndexByKey(datos_canciones,"_id",this.id.slice(0,-1)));
 	      id_cancion_actual = this.id.slice(0,-1);

@@ -48,8 +48,16 @@
     height: 5px;
 }
 
-#col_tiempo, #col_volumen{
+#reproductor_cancion, #reproductor_tiempo, #reproductor_volumen{
+    padding-bottom: 70px;
+}
+
+#col_tiempo{
     padding-top: 20px;
+}
+
+#rango_volumen{
+    margin-top: 20px;
 }
 
 .outer {
@@ -58,7 +66,7 @@
     height: 100%;
     width: 100%;
     background-color: #6d4c41;
-    z-index: 3000;
+    z-index: 99;
 }
 
 .middle {
@@ -75,7 +83,7 @@
 #cargando{
     width: 400px;
     height: 400px;
-    z-index: 001;
+    z-index: 100;
 }
 
 table.bordered>thead>tr, table.bordered>tbody>tr {
@@ -86,7 +94,7 @@ table.bordered>thead>tr, table.bordered>tbody>tr {
     padding-top:50px;
 }
 
-#col_caratula{
-    min-height: 591.16px;
-    min-width: 591.16px;
+.reproducir_cancion_lista{
+    cursor: pointer;
+    background: none;
 }

@@ -22,7 +22,7 @@
   <% } else { %>
 <strong>id</strong>: <%= user._id %><br>
 <strong>email</strong>: <%= user.local.email %><br>
-<strong>password</strong>: <%= user.local.password %>
+<strong>password</strong>: <p class="truncate"><%= user.local.password %></p>
 <% } %>
 <br>
 </div>

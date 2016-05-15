@@ -11,7 +11,6 @@
           session         = require('express-session'),
           flash           = require('connect-flash'),
           staticFile      = require('connect-static-file'),
-          babel           = require('babel-middleware'),
           babelMiddleware = require("babel-connect");
 
     let app = express();

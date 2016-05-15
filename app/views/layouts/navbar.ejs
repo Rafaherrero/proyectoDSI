@@ -9,6 +9,7 @@
                 <li><span><%- link_to('Tu perfil', '/users/' + user._id) %></span></li>
                 <li><%- link_to('Cerrar sesión', '/logout') %></li>
             <% } else { %>
+                <li><a href="/signup">Registrarse</a></li>
                 <li><a href="/login">Iniciar Sesión</a></li>
             <% } %>
             

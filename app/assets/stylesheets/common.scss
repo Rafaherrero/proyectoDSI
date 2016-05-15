@@ -12,6 +12,11 @@ body {
 
 .nav-wrapper {
   background-color: $colorfuerte;
+  z-index: 4000;
+}
+
+.side-nav{
+  z-index: 4000;
 }
 
 @media only screen and (min-width: 768px){

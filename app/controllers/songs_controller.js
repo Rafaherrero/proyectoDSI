@@ -67,13 +67,15 @@
                         console.log("dio error al guardar" + error)
                         return error;
                     }
-                    res.status(201).send('Insertado en la base de datos')
+                    res.writeHead(302, {
+                        'Location': '/'
+                    });
+                    res.end();
                 });
             })
         });
-   
         /*
-        
+
         V GET        /photos          photos#index   display a list of all photos
         X GET        /photos/new      photos#new     return an HTML form for creating a new photo
         X POST       /photos          photos#create  create a new photo
@@ -112,7 +114,7 @@
 
                 res.contentType('audio/mpeg');
                 console.log('Ya acabamos de coger la canción')
-                res.send(song.song.data);
+                res.json({song: song.song.data, image: song.image.data});
                 //res.status(200).send('Tu cancion es ' + song.name)
             });
         });
@@ -125,7 +127,8 @@
             
             let songsProjection = {
                 song: false,
-                owner: false
+                owner: false,
+                image: false
             }
             
             Song.find({owner: req.user._id}, songsProjection, (err, songs) => {

@@ -28,6 +28,9 @@
   },
   "homepage": "https://github.com/Rafaherrero/proyectoDSI#readme",
   "dependencies": {
+    "babel-connect": "^6.0.2",
+    "babel-middleware": "^0.3.4",
+    "base64-js": "^1.1.2",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.1",
     "connect-flash": "^0.1.1",
