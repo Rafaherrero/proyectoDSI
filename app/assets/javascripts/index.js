@@ -203,7 +203,7 @@ $(document).ready(function() {
                   'min': [0],
                   'max': [100],
                   },
-                  step: 10,
+                  step: 1,
                   
                   format: {
                         to: function(value){
