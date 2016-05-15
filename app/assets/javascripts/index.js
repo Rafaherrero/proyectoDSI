@@ -148,7 +148,7 @@ jQuery(document).ready(function($) {
                   },
                   format: {
 	                  to: function(value){
-	                        minutes = Math.floor(value / 60);
+	                         var minutes = Math.floor(value / 60);
                               minutes = (minutes >= 10) ? minutes : "0" + minutes;
                               value = Math.floor(value % 60);
                               value = (value >= 10) ? value : "0" + value;
@@ -191,6 +191,7 @@ jQuery(document).ready(function($) {
       };
       
       function formatTime(seconds) {
+            var minutes = 0;
             minutes = Math.floor(seconds / 60);
             minutes = (minutes >= 10) ? minutes : "0" + minutes;
             seconds = Math.floor(seconds % 60);

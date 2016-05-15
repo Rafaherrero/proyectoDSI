@@ -51,7 +51,8 @@
         server.start();
 
         gulp.watch([
-                'app/controllers/**/*.js'
+                'app/controllers/**/*.js',
+                'app.js'
             ],
             (file) => {
                 console.log('[GLS] File changed');

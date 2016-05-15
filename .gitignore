@@ -6,3 +6,4 @@ public/sass/.sass-cache/
 public/css/
 npm-debug.log
 tmp
+.cache

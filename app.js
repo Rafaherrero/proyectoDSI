@@ -1,16 +1,18 @@
 (() => {
     'use strict';
-    const express      = require('express'),
-          logger       = require('morgan'),
-          ejs          = require('ejs'),
-          mongoose     = require('mongoose'),
-          path         = require('path'),
-          bodyParser   = require('body-parser'),
-          cookieParser = require('cookie-parser'),
-          passport     = require('passport'),
-          session      = require('express-session'),
-          flash        = require('connect-flash'),
-          staticFile = require('connect-static-file');
+    const express         = require('express'),
+          logger          = require('morgan'),
+          ejs             = require('ejs'),
+          mongoose        = require('mongoose'),
+          path            = require('path'),
+          bodyParser      = require('body-parser'),
+          cookieParser    = require('cookie-parser'),
+          passport        = require('passport'),
+          session         = require('express-session'),
+          flash           = require('connect-flash'),
+          staticFile      = require('connect-static-file'),
+          babel           = require('babel-middleware'),
+          babelMiddleware = require("babel-connect");
 
     let app = express();
 
@@ -51,14 +53,14 @@
 
     // Transforma la petición HTTP en un JSON
     app.use(bodyParser.json());
-    
+
     // Motor de las vistas, que podría ser Jade, Mustache. Pero en la práctica vamos
     // A usar EJS (EmbeddedJS)
     app.set('view engine', 'ejs');
 
     // Cargar helpers de EJS. Documentación: https://github.com/tanema/express-helpers/wiki
     require('express-helpers')(app);
-    
+
     // Establecer la ruta de las vistas
     app.set('views', __dirname + '/app/views');
 
@@ -86,12 +88,23 @@
     app.use('/nouislider.css', staticFile(`${__dirname}/vendor/Materialize/extras/noUiSlider/nouislider.css`));
     app.use('/underscore-min.js', staticFile(`${__dirname}/vendor/underscore/underscore-min.js`));
     app.use('/underscore-min.map', staticFile(`${__dirname}/vendor/underscore/underscore-min.map`));
-    
+
     // Incluimos nuestras dependencias públicas
     app.use(express.static(`${__dirname}/vendor/Materialize/dist`));
-    app.use(express.static(`${__dirname}/app/assets/javascripts`));
+    //app.use(express.static(`${__dirname}/app/assets/javascripts`));
     app.use(express.static(`${__dirname}/app/assets/images`));
     app.use(express.static(`${__dirname}/public`));
+
+    // Middleware para convertir a ECMA5
+    app.use(babelMiddleware({
+      options: {
+        // options to use when transforming files
+      },
+      src: "app/assets/javascripts",
+      dest: ".cache"
+    }));
+
+    app.use(express.static("cache"));
 
     // Si se produce un error en la ruta, enviamos un not found
     app.use((req, res, next) => {
