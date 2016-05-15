@@ -1,60 +1,70 @@
-$(document).ready(function() {
-	id3('/cancion1.mp3', function(err, tags) {
-		//if (tags.v2.private != null) {
-            //var len = tags.v2.private.data.byteLength ;
-            //var encodedStr = String.fromCharCode.apply(null, new Uint8Array(tags.v2.private.data));
-            //var decodedString = decodeURIComponent(escape( encodedStr ));
-        //}
-
-	if (tags.v2.image != null) {
-    var blob = new Blob( [ tags.v2.image.data ], { type: "image/png" } );
-    var urlCreator = window.URL || window.webkitURL;
-    var imageUrl = urlCreator.createObjectURL( blob );
-
-    $('.image').attr('src', imageUrl);
-    }
-    else{
-        
-    }
-	});
-	
-	/*
-	http://stackoverflow.com/questions/17762763/play-wav-sound-file-encoded-in-base64-with-javascript
-	Como desde la base de datos se pasa la cancion en base64 para poder reproducirla se debe hacer algo parecido a esto...
-	En el link de arriba esta la pregunta con la respuesta.
-	var snd = new Audio("data:audio/wav;base64," + base64string);
-      snd.play();
-	*/
-	
-	/*const cancionescarousel = `
-        <% cancionesbd.forEach((item, i) =>{ %>
-        <a class="carousel-item" href="#one"><img class="image"><%= item %></a>
-          <% }); %>`;
-
-        const actualizarCarousel = () => {
-            $.get('/songs', {}, (cancionesbd) => {
-                let template = _.template(cancionescarousel)({cancionesbd});
-                $('#carousel_col').html(template);
-            });
-            inicializarcarousel();
-        };
-	actualizarCarousel();*/
-	$.ajax(
+jQuery(document).ready(function($) {
+      let datos_canciones;
+      let myaudio = new Audio();
+      $(() => {
+      $.ajax(
       {     
             type: 'GET',
             url: '/songs',
             success: function (data) {
-                  console.log(data);
+                  datos_canciones = data;
+                  $("#cerdo_inicial").remove();
+                  var imagen = data.image;
+                  for(i=0; i<data.length; i++) {
+                        var newSlide = makeCarousel(data[i]);   
+                        $("#carousel_col").append(newSlide);
+                        $('.carousel-item').first().addClass('active');
+                  }
+                  $('#carousel_col').carousel();
+                  carga_cancion(datos_canciones[0]._id);
             },
             fail: function(){
-                  
+                  alert("No se ha loguineado en la web");
             }
       });
       
-	var myaudio = new Audio('/cancion1.mp3');
+      });
+	
+	/*
+	http://stackoverflow.com/questions/17762763/play-wav-sound-file-encoded-in-base64-with-javascript
+	*/
+      
+      function makeCarousel(photo) {
+
+             var newItem = $("<a>").addClass("carousel-item");
+             var Img = $("<img>").attr("src", "data:image/png;base64," + photo.image.data);
+             
+             newItem.attr("href", "#");
+             newItem.append(Img);
+             newItem.append(photo.name);
+
+             return newItem;
+      }
+      
+      function carga_cancion (ident){
+      $.ajax(
+      {     
+            type: 'GET',
+            url: `/songs/${ident}`,
+            success: function (cancionmp3){
+                  myaudio = new Audio("data:audio/mp3;base64," + cancionmp3);
+            },
+            
+            statusCode: {
+                  200: function() {
+                  actualizar_datos();
+                  }
+            },
+            complete: function(){
+                  actualizar_datos();
+            }
+      });
+      }
+
 	var rangeSlider = document.getElementById('rango_tiempo');
 	
-	myaudio.addEventListener('loadedmetadata', function() {
+	function actualizar_datos (){
+
             $('#tiempo_cancion_restante').text(formatTime(myaudio.duration));
             $('#tiempo_cancion_reproducido').text(formatTime(0));
             
@@ -85,7 +95,7 @@ $(document).ready(function() {
             rangeSlider.noUiSlider.on('slide', function(){
                   myaudio.currentTime = formatTime_back(rangeSlider.noUiSlider.get());
             });
-      });
+      };
 
       myaudio.addEventListener('timeupdate', function () {
             let minutes, seconds;
@@ -115,7 +125,7 @@ $(document).ready(function() {
       }
       
 	$(document).on("click", "#boton_p", function() {
-	      
+
 	    if ($('#boton_p').text()==('play_arrow')){
 		myaudio.play();
             $('#boton_p').replaceWith('<a class="btn-floating btn-large waves-effect" id="boton_p"><i id="boton_p_material_icons" class="material-icons">pause</i></a>');
@@ -134,12 +144,13 @@ $(document).ready(function() {
             shift:0,
             padding:20,
             full_width: false
-      });    
+      });
+      $('.carousel').removeClass('initialized');
 	};
 	$(document).ready(function(){
             inicializarcarousel();
     });
-    
+
 
 //IMPORTANTE!!!! ID3JS ESTA MALL!!!!
 //https://github.com/defenderjim/id3/blob/ebfb6792590d49aef00bfa031d28c2460b5313f2/dist/id3.js

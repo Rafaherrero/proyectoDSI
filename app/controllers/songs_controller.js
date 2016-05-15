@@ -111,8 +111,8 @@
 
                 res.contentType('audio/mpeg');
                 console.log('Ya acabamos de coger la canción')
-                //res.send(song.song.data);
-                res.status(200).send('Tu cancion es ' + song.name)
+                res.send(song.song.data);
+                //res.status(200).send('Tu cancion es ' + song.name)
             });
         });
 
@@ -134,7 +134,7 @@
                     res.status(500).send('Mongo error in query');
                     return
                 }
-                
+
                 //console.log(songs);
                 res.json(songs);
             });

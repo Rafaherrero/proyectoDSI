@@ -2,10 +2,7 @@
 
 <% include ../layouts/navbar %>
 
-<span>Soy la vista index</span>
-
 <script src="id3.min.js"></script>
-<input type="file">
 
 <div class="preloader-wrapper big active" id="cargando">
     <div class="spinner-layer">
@@ -17,11 +14,13 @@
         <div class="circle"></div>
       </div>
     </div>
+    <audio id="miaudio"></audio>
 </div>
 <div class="row center">
 
     <div class="col s12">
       <div class="carousel" id="carousel_col">
+        <a class="carousel-item" href="#" id="cerdo_inicial"><img src="/Plopper.png"></a>
         </div>
 </div>
 <div class="col s12">
@@ -41,29 +40,7 @@
 <div class="col s2"><span id="tiempo_cancion_restante"></span></div>
 </div>
 <span id="probando"></span>
-<img src="/songs">
   </div>
   </div>
-
-
-
-<h1>Tus datos: </h1>
-<%  if(user == null){
-        user = {}
-        user._id = "???";
-        user.local = {
-            email: "????",
-            password: "???"
-        };
-  } else { %>
-        <h1>Cerrrar sesión</h1>
-        <%- link_to('Cerrar sesión', '/logout', {Class: 'btn'}) %>
-<% } %>
-
-<br>
-
-<strong>id</strong>: <%= user._id %><br>
-<strong>email</strong>: <%= user.local.email %><br>
-<strong>password</strong>: <%= user.local.password %>
 
 <% include ../layouts/scripts %>
