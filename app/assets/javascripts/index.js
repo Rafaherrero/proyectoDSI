@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+$(document).ready(function() {
       let datos_canciones;
       let myaudio = document.getElementById('miaudio');
       let cnt=0;
@@ -9,6 +9,19 @@ jQuery(document).ready(function($) {
       let index_cancion_actual = 0;
       var imagen_actual=0;
       let volumen_actual=1;
+      
+      $(document).ready(function(){  
+            var iOS = false,
+            p = navigator.platform;
+            if( p === 'iPad' || p === 'iPhone' || p === 'iPod' ) {
+                  iOS = true;
+            }
+            if (iOS === true) {
+                  $("#col_volumen").hide();
+                  $("#col_tiempo").removeClass();
+                  $("#col_tiempo").addClass("col s12 l7 center");
+            }
+      });
 
      /* <% datos_canciones.forEach((item, i) =>{ %>
             <tr class="reproducir_cancion_lista" id="<%= item._id %>&">
@@ -119,6 +132,12 @@ jQuery(document).ready(function($) {
              return newItem;
       };*/
       
+
+      function cargando_caratula () {
+        $("#img_caratula").toggle();
+        $("#cargando_cara").toggle();
+      };
+      
       function formatTime_back(time){
             let a = time.split(':');
             return ((parseInt(a[0])*60)+parseInt(a[1]))
@@ -147,7 +166,7 @@ jQuery(document).ready(function($) {
             Img.addClass("z-depth-4");
             Img.addClass("hoverable");
             $("#img_caratula").replaceWith(Img);
-            
+            $("#cargando_cara").toggle();
             
             $(`#${datos_canciones[index_cancion_actual]._id}\\&`).css('background','#f5f5f5');
             
@@ -254,8 +273,24 @@ jQuery(document).ready(function($) {
 	    }
 	});
 	
+	$(window).scroll(function(){
+            if ($(this).scrollTop() > 100) {
+                $('.scrollup').fadeIn();
+            } else {
+                $('.scrollup').fadeOut();
+            }
+        });
+
+        function scroll_up(){
+            $("html, body").animate({ scrollTop: 0 }, 600);
+            return false;
+        };
+
+	
 	function siguiente_cancion (){
 	      cambiar_por_pause();
+	      cargando_caratula();
+	      scroll_up();
 	      id_cancion_anterior = id_cancion_actual;
 	      index_cancion_actual = (IndexByKey(datos_canciones,"_id",id_cancion_actual)+1)%datos_canciones.length;
 	      id_cancion_actual = datos_canciones[index_cancion_actual]._id;
@@ -265,6 +300,8 @@ jQuery(document).ready(function($) {
 
 	function cancion_anterior (){
 	      cambiar_por_pause();
+	      cargando_caratula();
+	      scroll_up();
 	      if(IndexByKey(datos_canciones,"_id",id_cancion_actual) == 0)
 	            index_cancion_actual = datos_canciones.length-1;
 	      else{
@@ -300,6 +337,8 @@ jQuery(document).ready(function($) {
 	
 	$(document).on('click', ".reproducir_cancion_lista", function() {
 	      cambiar_por_pause();
+	      cargando_caratula();
+	      scroll_up();
 	      id_cancion_anterior = id_cancion_actual;
 	      index_cancion_actual = (IndexByKey(datos_canciones,"_id",this.id.slice(0,-1)));
 	      id_cancion_actual = this.id.slice(0,-1);

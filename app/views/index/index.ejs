@@ -28,16 +28,27 @@
         </div>
 </div>-->
 <div class="col s12 m4 offset-m1 center" id="col_caratula">
+  <div class="preloader-wrapper big active" id="cargando_cara">
+    <div class="spinner-layer">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+    </div>
   <img id="img_caratula">
 </div>
 
 <div class="col s12 m6">
-  <b><h2 id="cancion_sonando"></h2></b>
-  <h3 id="artista_sonando"></h3>
-  <i><h4 id="album_sonando"></h4></i>
+  <h1 id="cancion_sonando"></h1>
+  <h2 id="artista_sonando"></h2>
+  <i><h3 id="album_sonando"></h3></i>
 </div>
 </div>
-<div class="row">
+<div class="row" id="controladores">
 <div class="col s12 l3 offset-l1 center">
   <div id="reproductor_cancion">
     <div class="col s4"><a class="btn-floating btn-large waves-effect waves-light" id="boton_anterior"><i id="boton_p_material_icons" class="material-icons">skip_previous</i></a></div>
@@ -63,7 +74,7 @@
 </div>
 </div>
 
-<div class = "row">
+<div class = "row" id="fila_tabla">
 <div class="col s12 m10 offset-m1" id="tabla_canciones">
   <table class="centered bordered highlight">
         <thead>
