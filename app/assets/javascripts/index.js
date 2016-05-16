@@ -153,7 +153,16 @@ $(document).ready(function() {
 	      $('#boton_p').replaceWith('<a class="btn-floating btn-large waves-effect waves-light" id="boton_p"><i id="boton_p_material_icons" class="material-icons">play_arrow</i></a>');
       }
       
-      $(".reproducir_cancion_lista").hover(function(){
+      myaudio.addEventListener("loadedmetadata", function() {
+            if(cnt>0){
+            rangeSlider.noUiSlider.destroy();
+            volumenSlider.noUiSlider.destroy();
+            cambiar_por_play();
+            $(`#${id_cancion_anterior}\\&`).css('background','none');
+            
+            }
+            
+            $(".reproducir_cancion_lista").hover(function(){
             var id_elemento = $(this).attr("id");
             if (id_elemento.slice(0,-1)!=id_cancion_actual){
                   $(this).css("background", "#f5f5f5");
@@ -163,16 +172,8 @@ $(document).ready(function() {
                   if (id_elemento.slice(0,-1)!=id_cancion_actual){
                         $(this).css("background", "none");
                   }
-      });
-      
-      myaudio.addEventListener("loadedmetadata", function() {
-            if(cnt>0){
-            rangeSlider.noUiSlider.destroy();
-            volumenSlider.noUiSlider.destroy();
-            cambiar_por_play();
-            $(`#${id_cancion_anterior}\\&`).css('background','none');
+            });
             
-            }
             let Img = $("<img>").attr("src", "data:image/png;base64," + imagen_actual);
             Img.attr("id", "img_caratula");
             Img.addClass("responsive-img");
