@@ -9,6 +9,7 @@ $(document).ready(function() {
       let index_cancion_actual = 0;
       var imagen_actual=0;
       let volumen_actual=1;
+      let cargando_cancion = 0;
       
       $(document).ready(function(){  
             var iOS = false,
@@ -95,9 +96,10 @@ $(document).ready(function() {
             dataType: "json",
             url: `/songs/${ident}`,
             success: function (cancionmp3){
+                  cargando_cancion = 1;
                   //http://stackoverflow.com/questions/17762763/play-wav-sound-file-encoded-in-base64-with-javascript
                   imagen_actual = cancionmp3.image;
-                  myaudio.setAttribute('src', "data:audio/mp3;base64," + cancionmp3.song);
+                  myaudio.src = ("data:audio/mp3;base64," + cancionmp3.song);
                   myaudio.volume = volumen_actual;
                   myaudio.load();
                   $('.outer').fadeOut(1000);
@@ -136,6 +138,7 @@ $(document).ready(function() {
       function cargando_caratula () {
         $("#img_caratula").toggle();
         $("#cargando_cara").toggle();
+        console.log(cargando_cancion);
       };
       
       function formatTime_back(time){
@@ -154,10 +157,11 @@ $(document).ready(function() {
       }
       
       myaudio.addEventListener("loadedmetadata", function() {
+            cargando_cancion = 0;
             if(cnt>0){
             rangeSlider.noUiSlider.destroy();
             volumenSlider.noUiSlider.destroy();
-            cambiar_por_play();
+            
             $(`#${id_cancion_anterior}\\&`).css('background','none');
             
             }
@@ -229,6 +233,7 @@ $(document).ready(function() {
                         }
                   },
             });
+            cambiar_por_play();
             actualizar_datos();
             cnt++;
       });
@@ -302,6 +307,7 @@ $(document).ready(function() {
 
 	
 	function siguiente_cancion (){
+	      if(!cargando_cancion){
 	      cambiar_por_pause();
 	      cargando_caratula();
 	      scroll_up();
@@ -310,9 +316,15 @@ $(document).ready(function() {
 	      id_cancion_actual = datos_canciones[index_cancion_actual]._id;
 	      carga_cancion(id_cancion_actual);
 	      myaudio.currentTime = 0;
+	      }
+	      else{
+	            alert("Espere a que se termine de cargar la cancion");
+	      }
+	      cargando_cancion = 1;
 	};
 
 	function cancion_anterior (){
+	      if(!cargando_cancion){
 	      cambiar_por_pause();
 	      cargando_caratula();
 	      scroll_up();
@@ -325,6 +337,11 @@ $(document).ready(function() {
 	      id_cancion_actual = datos_canciones[index_cancion_actual]._id;
 	      carga_cancion(id_cancion_actual);
 	      myaudio.currentTime = 0;
+	      }
+	      else{
+	            alert("Espere a que se termine de cargar la cancion");
+	      }
+	      cargando_cancion = 1;
 	};
 	
 	$(document).on('click', "#boton_siguiente", function() {
@@ -364,6 +381,7 @@ $(document).ready(function() {
 	});
 	
 	$(document).on('click', ".reproducir_cancion_lista", function() {
+	      if(!cargando_cancion){
 	      cambiar_por_pause();
 	      cargando_caratula();
 	      scroll_up();
@@ -372,6 +390,11 @@ $(document).ready(function() {
 	      id_cancion_actual = this.id.slice(0,-1);
 	      carga_cancion(id_cancion_actual);
 	      myaudio.currentTime = 0;
+	      }
+	      else{
+	            alert("Espere a que se termine de cargar la cancion");
+	      }
+	      cargando_cancion = 1;
 	});
 	
 });
