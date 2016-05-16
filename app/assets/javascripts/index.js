@@ -153,12 +153,25 @@ $(document).ready(function() {
 	      $('#boton_p').replaceWith('<a class="btn-floating btn-large waves-effect waves-light" id="boton_p"><i id="boton_p_material_icons" class="material-icons">play_arrow</i></a>');
       }
       
+      $(".reproducir_cancion_lista").hover(function(){
+            var id_elemento = $(this).attr("id");
+            if (id_elemento.slice(0,-1)!=id_cancion_actual){
+                  $(this).css("background", "#f5f5f5");
+            }
+            }, function(){
+                  var id_elemento = $(this).attr("id");
+                  if (id_elemento.slice(0,-1)!=id_cancion_actual){
+                        $(this).css("background", "none");
+                  }
+      });
+      
       myaudio.addEventListener("loadedmetadata", function() {
             if(cnt>0){
             rangeSlider.noUiSlider.destroy();
             volumenSlider.noUiSlider.destroy();
             cambiar_por_play();
             $(`#${id_cancion_anterior}\\&`).css('background','none');
+            
             }
             let Img = $("<img>").attr("src", "data:image/png;base64," + imagen_actual);
             Img.attr("id", "img_caratula");
@@ -322,16 +335,30 @@ $(document).ready(function() {
 	});
 	
 	$(document).on('click', "#boton_volume_up", function() {
-	      if(volumen_actual<=0.9){
+	      if(volumen_actual>=0.90){
+	            volumen_actual = 1;
+	            myaudio.volume = volumen_actual;
+	            console.log(volumen_actual);
+	      }
+	      
+	      else{
 	            volumen_actual = volumen_actual+0.1;
 	            myaudio.volume = volumen_actual;
+	            console.log(volumen_actual);
 	      }
+	      
 	});
 	
 	$(document).on('click', "#boton_volume_down", function() {
-	      if(volumen_actual>=0.10){
+	      if(volumen_actual<0.10){
+	            volumen_actual = 0;
+	            myaudio.volume = volumen_actual;
+	            console.log(volumen_actual);
+	      }
+	      else{
 	            volumen_actual = volumen_actual-0.1;
 	            myaudio.volume = volumen_actual;
+	            console.log(volumen_actual);
 	      }
 	});
 	
