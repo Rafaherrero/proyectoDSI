@@ -1,9 +1,3 @@
-/*$colorfuerte: #3e2723;
-$colormedio: #4e342e;
-$colorflojo: #5d4037;
-$colorflojito: #6d4c41;
-$colorfondo: #d7ccc8;*/
-
 @import "variables";
 
 body {
@@ -17,6 +11,18 @@ body {
 
 .side-nav{
   z-index: 4000;
+}
+
+.btn-large{
+    background-color: $colorfuerte;
+}
+
+.btn-large:hover{
+    background-color: $colorflojito;
+}
+
+.texto_bienvenida{
+    padding-top:20px;
 }
 
 @media only screen and (min-width: 768px){

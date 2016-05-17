@@ -33,7 +33,7 @@
 }
 
 .spinner-layer{
-    border-color: #3e2723;
+    border-color: $colorfuerte;
 }
 
 #rango_tiempo, #rango_volumen{
@@ -65,7 +65,7 @@
     position: absolute;
     height: 100%;
     width: 100%;
-    background-color: #6d4c41;
+    background-color: $colorflojito;
     z-index: 99;
 }
 
@@ -96,7 +96,7 @@
 }
 
 table.bordered>thead>tr, table.bordered>tbody>tr {
-    border-bottom: 1px solid #4e342e;
+    border-bottom: 1px solid $colormedio;
 }
 
 #fila_reproductor{
