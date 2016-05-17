@@ -48,6 +48,15 @@ Para la autenticación en la plataforma se ha utilizado `passport`. Usando únic
 
 Para poder desarrollar y usar el lint, tenemos que tener instalada la gema `scss-lint`.
 
+## Comparativa funcionamiento
+![Comparativa navegadores](recursos_readme/Comparativa_navegadores.jpg)
+En esta sección se compara el comportamiento y el funcionamiento de la aplicación bajo distintos navegadores web.
+Como se puede apreciar en el gráfico superior, el que mejor rendimiento ofrece es Microsoft Edge, gracias a sus animaciones "suaves". Sin embargo, se observa el mismo comportamiento tanto en Chrome como en Opera, y en los sistemas operativos Mac y Windows, por lo que reciben la misma puntuación.
+En el caso de Firefox, es capaz de renderizar la página correctamente y de funcionar perfectamente, sin embargo, se detectó en un caso de pruebas que no actualizaba el flag de reproduciendo canción. Sin embargo, no conseguimos repetir este error. Por ello, queda relegado a la segunda posición.
+Curioso es el caso de los dos últimos navegadores, ya que Internet Explorer reproduce sin ningún problema las canciones, salvo en algunas combinaciones en las que no actualiza el flag y no podremos reproducir más canciones hasta que no refresquemos la página. En el caso de Safari, cuando una canción termina, este saltar dos canciones más adelante, por lo que nos aparece en todo momento el aviso de que se está intentando cargar una canción mientras otra ya está en proceso, aunque no debería. Si eliminamos este flag, el comportamiento de este navegador es más que desastroso.
+
+En cuanto a dispositivos móviles, se ha probado el funcionamiento bajo las plataformas Android e iOS. En el caso de la primera, solo es posible utilizar ficheros de pequeño tamaño (no mas de 1 minuto), ya que aquellos que sobrepasen una determinada cantidad, no hace el intento de cargarlos. En el caso de iOS, el funcionamiento es prácticamente de sobresaliente, ya que incluso se nos integra con el propio reproductor del sistema operativo. Sin embargo, no funciona el control del volumen de la aplicación, si no el nativo, por lo que este se oculta en el caso de que se detecte que se carga la web desde iOS. Además, debido a las restricciones de Apple, para evitar un consumo de datos sobre redes móviles elevado, la aplicación no cargará, por lo que será necesario una conexión WiFi.
+
 ### Página de los autores
 
 * [Rafa Herrero](http://rafaherrero.github.io/)
