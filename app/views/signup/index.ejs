@@ -1,31 +1,17 @@
 <% include ../layouts/head %>
 <% include ../layouts/navbar %>
 
+<div class="row center">
+    <div class="col s12 m8 offset-m2">
+        <h3 class="texto_bienvenida">Para utilizar esta aplicación, primero debe registrarse. Para ello, rellene el siguiente formulario con su correo y una contraseña</h3>
 <%- form_tag("/users") %>
     <%- label_for("email") %>
     <%- email_field_tag("email") %><br />
     <%- label_for("password") %>
     <%- password_field_tag("password") %><br />
-    <%- submit_tag({class: 'button'}) %><br />
+    <%- submit_tag({class: 'btn-large'}) %><br />
 <%- form_end_tag() %>
-
-<h1>Tus datos: </h1>
-<%  if(user == null){
-        user = {}
-        user._id = "???";
-        user.local = {
-            email: "????",
-            password: "???"
-        };
-  } else { %>
-        <h1>Cerrrar sesión</h1>
-        <%- link_to('Cerrar sesión', '/logout', {Class: 'btn'}) %>
-<% } %>
-
-<br>
-
-<strong>id</strong>: <%= user._id %><br>
-<strong>email</strong>: <%= user.local.email %><br>
-<strong>password</strong>: <%= user.local.password %>
+</div>
+</div>
 
 <% include ../layouts/scripts %>

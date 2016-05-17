@@ -398,7 +398,7 @@ $(document).ready(function() {
 	});
 	
 });
-	
+	/*
 	function inicializarcarousel (){
 	  $('.carousel').carousel({
             time_constant: 100,
@@ -412,7 +412,7 @@ $(document).ready(function() {
 	$(document).ready(function(){
             inicializarcarousel();
     });
-
+*/
 
 //IMPORTANTE!!!! ID3JS ESTA MALL!!!!
 //https://github.com/defenderjim/id3/blob/ebfb6792590d49aef00bfa031d28c2460b5313f2/dist/id3.js
