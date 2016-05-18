@@ -1,7 +1,7 @@
 # Coco Music
 
 [![David](https://img.shields.io/david/Rafaherrero/proyectoDSI.svg?style=flat-square)](https://david-dm.org/Rafaherrero/proyectoDSI#info=dependencies&view=table)
-[![David](https://img.shields.io/david/dev/Rafaherrero/proyectoDSI?style=flat-square)](https://david-dm.org/Rafaherrero/proyectoDSI#info=devDependencies&view=table)
+[![David](https://img.shields.io/david/dev/Rafaherrero/proyectoDSI.svg?style=flat-square)](https://david-dm.org/Rafaherrero/proyectoDSI#info=devDependencies&view=table)
 [![GitHub issues](https://img.shields.io/github/issues/Rafaherrero/proyectoDSI.svg?style=flat-square)](https://github.com/Rafaherrero/proyectoDSI)
 
 
