@@ -17,7 +17,7 @@ Para poder desplegar el proyecto, necesitamos la versión `6.1.0` de Node, así 
 
 ```bash
     # Clonamos el repo
-    git clone https://github.com/ULL-ESIT-GRADOII-DSI/TODO: URL CocoMusic
+    git clone https://github.com/ULL-ESIT-GRADOII-DSI/proyecto-final-de-dsi-rafa-pedro-dani CocoMusic
     # Entramos al directorio y a la base de datos
     cd CocoMusic/db
     # Iniciamos mongo y lo dejamos en el background
