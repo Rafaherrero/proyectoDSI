@@ -10,6 +10,27 @@ Coco music es un proyecto realizado por Rafa Herrero,Daniel Ramos Acosta y Pedro
 
 Es una plataforma que permite al usuario gestionar sus listas de reproducciones acorde a los gustos musicales.Todo el sistema funciona sin manejar ningún tipo de fichero que tenga que ver con el usuario, todo está en un servidor y se carga automáticamente según el usuario desee. La plataforma permite realizar todas las funciones que tiene un reproductor de música pero todo en una plataforma web. Además, es posible utilizar la aplicación en cualquier dispositivo ya que se adapta a todas las pantallas y funciona sin ningún tipo de problema.
 
+## Instalación
+
+Para poder desplegar el proyecto, necesitamos la versión `6.1.0` de Node, así como Mongo instalado en su versión `2.6.11`.
+
+
+```bash
+    # Clonamos el repo
+    git clone https://github.com/ULL-ESIT-GRADOII-DSI/TODO: URL CocoMusic
+    # Entramos al directorio y a la base de datos
+    cd CocoMusic/db
+    # Iniciamos mongo y lo dejamos en el background
+    ./mongod &
+    cd ..
+    # Instalamos las dependencias de back-end
+    npm install
+    # Instalamos las dependencias de front-end
+    bower install
+    # Lanzamos el servidor
+    npm start
+```
+
 ## Estructura de Directorio
 
 La estructura de directorio la hemos seguido usando como base el generador de Express (`express-generator`), y otras que hemos visto por internet para crear usar una arquitectura MVC. Nos han influenciado otros proyectos, como algunos generadores de Yeoman y la estructura de Rails.
