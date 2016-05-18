@@ -16,7 +16,7 @@ La estructura de directorio la hemos seguido usando como base el generador de Ex
 
 En el directorio `bin` tenemos el script de arranque, el cual también se puede llamar usando `npm start`. Dentro de `config`, tenemos lo relativo a la configuración de los paquetes `passport`, `mongoose`, y las rutas de Express.
 
-En `app` es donde está
+En `app` es donde está la mayor parte del proyecto. En el directorio `assets` tenemos los ficheros de front-end, como las hojas de estilo y los script. Dentro de `controllers` están los ficheros que manipulan las vistas para que se adapten a los clientes, dependiendo de la situación (por ejemplo, en caso de no haber iniciado sesión no saldría el correo en el navbar por ejemplo. Dentro del directorio `views` tenemos por cada controlador una serie de vistas que cambian de nombre dependiendo de que tipo de verbo `CRUD` usemos. Por último, está `models`, que es donde tenemos los modelos que usamos para interactuar con la base de datos de Mongo.
 
 
 ## Back-end
